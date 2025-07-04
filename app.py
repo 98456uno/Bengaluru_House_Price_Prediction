@@ -107,8 +107,9 @@ def set_bg(jpg_file):
 set_bg('Background.jpg')
 
 # -------------------- Load Model & Data Columns --------------------
-model = pickle.load(open("banglore_home_prices_model.pickle"))
-data_columns = json.load(open("columns.json", "rb"))['data_columns']
+model = pickle.load(open("banglore_home_prices_model.pickle", "rb"))
+
+data_columns = json.load(open("columns.json", "r"))['data_columns']
 locations = data_columns[3:]
 
 def is_float(val):
