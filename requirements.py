@@ -4,7 +4,7 @@ with open("requirements.txt", "w") as f:
     f.write("pandas\n")
     f.write("matplotlib\n")
     f.write("scikit-learn\n")
-    f.write("pillow\n")  
+    f.write("numpy\n")  
 print("✅ requirements.txt created successfully!")
 
 # Optional install line
