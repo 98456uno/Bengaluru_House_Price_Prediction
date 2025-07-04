@@ -13,9 +13,11 @@ def set_bg(jpeg_file):
         <style>
         .stApp {{
             background-image: url("data:image/jpeg;base64,{b64_img}");
-            background-size: cover;
+            background-size: contain;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            background-position: center;
+
         }}
 
         /* Apply white block behind main content */
