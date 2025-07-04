@@ -5,27 +5,43 @@ import base64
 import json
 
 # -------------------- Set Background Image --------------------
-def set_bg(jpg_file):
-    with open(jpg_file, "rb") as f:
+def set_bg(jpeg_file):
+    with open(jpeg_file, "rb") as f:
         b64_img = base64.b64encode(f.read()).decode()
     st.markdown(
         f"""
         <style>
         .stApp {{
-            background-image: url("data:image/jpg;base64,{b64_img}");
+            background-image: url("data:image/jpeg;base64,{b64_img}");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
         }}
 
-        .main-box h1 {{
+        /* Apply white block behind main content */
+        section.main > div:has(.block-container) {{
+            display: flex;
+            justify-content: center;
+        }}
+
+        .block-container {{
+            background-color: rgba(255, 255, 255, 0.97);
+            padding: 3rem 2.5rem;
+            border-radius: 25px;
+            max-width: 750px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        }}
+
+       
+
+        h1 {{
             color: #222;
             text-align: center;
             font-size: 2rem;
             margin-bottom: 2rem;
         }}
 
-        /* Updated label styles */
         .stTextInput label, .stSelectbox label {{
             color: black !important;
             font-weight: 700 !important;
@@ -104,12 +120,11 @@ def set_bg(jpg_file):
     )
 
 # -------------------- Background Image Path --------------------
-set_bg('Background.jpg')
+set_bg('Background.jpeg')
 
 # -------------------- Load Model & Data Columns --------------------
 model = pickle.load(open("banglore_home_prices_model.pickle", "rb"))
-
-data_columns = json.load(open("columns.json", "r"))['data_columns']
+data_columns = json.load(open("columns.json", "rb"))['data_columns']
 locations = data_columns[3:]
 
 def is_float(val):
@@ -125,12 +140,9 @@ with st.container():
 
     st.markdown('<h1 style="color:black;">🏠 Bangalore Home Price Predictor</h1>', unsafe_allow_html=True)
 
-
     sqft = st.text_input("Enter Area (in sqft):", placeholder="e.g. 1200")
-
     bhk = st.radio("Select BHK:", options=[1, 2, 3, 4, 5], horizontal=True, key="selectbhk")
     bath = st.radio("Select Bathrooms:", options=[1, 2, 3, 4, 5], horizontal=True, key="selectbath")
-
     location = st.selectbox("Select Location:", sorted(locations))
 
     if st.button("Estimate Price 💰"):
@@ -154,7 +166,6 @@ with st.container():
                     """,
                     unsafe_allow_html=True
                 )
-
             except Exception as e:
                 st.markdown(
                     f"""
