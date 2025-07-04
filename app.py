@@ -107,7 +107,7 @@ def set_bg(jpg_file):
 set_bg('Background.jpg')
 
 # -------------------- Load Model & Data Columns --------------------
-model = pickle.load(open(r"C:\Users\DELL\Desktop\Bengaluru House Price Prediction\banglore_home_prices_model.pickle", "rb"))
+model = pickle.load(open("banglore_home_prices_model.pickle"))
 data_columns = json.load(open("columns.json", "rb"))['data_columns']
 locations = data_columns[3:]
 
